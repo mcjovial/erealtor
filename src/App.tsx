@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import ExplorePage from './pages/ExplorePage'
+import './styles/App.css'
+import NotFound from './components/404/NotFoundRoute'
+import LandingPage from './pages/LandingPage'
 
-function App() {
+const App: React.FC = () => {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="explore">
+            <Route index element={<ExplorePage />} />
+          </Route>
+          <Route path="*" element={<NotFound />} /> {/* here is not found route */}
+        </Routes>
+      </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
