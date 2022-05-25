@@ -12,11 +12,10 @@ export const HEADER_HEIGHT = 60
 export const DRAWER_WIDTH = 250
 
 // APP TEXT
-export const APP_TITLE =
-  'Makhzan, Best website to find your most suitable storage unit or renting it'
-export const FOOTER_TEXT = `${new Date().getFullYear()} Proudly developed by Mohamed Salem`
+export const APP_TITLE = 'eRealtor, Best website to find your most suitable property units and buy or renting it'
+export const FOOTER_TEXT = `${new Date().getFullYear()} Proudly developed by Emmanuel Elias`
 
-export const GOVERNORATES = [
+export const STATES = [
   'Abia',
   'Adamawa',
   'Akwa-ibom',

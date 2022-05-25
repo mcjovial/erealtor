@@ -1,24 +1,24 @@
 // User Model
 
 export interface UserAttributes {
-  id?: number | string
+  _id?: number | string
   name: string
   email: string
   password?: string
-  phoneNumber: string
+  phone: string
   isAdmin?: boolean
   createdAt?: string
   updatedAt?: string
 }
 
 // Warehouse Model
-export interface WarehouseAttributes {
-  id?: number | string
+export interface PropertyAttributes {
+  _id?: number | string
   title: string
   description: string
   rent: number
   size: number
-  governorate: string
+  state: string
   location: string
   street: string
   services: Array<string>
@@ -53,7 +53,7 @@ export interface RegisterState {
   lastName: string
   email: string
   password: string
-  phoneNumber: string
+  phone: string
 }
 
 export interface LoginState {
@@ -62,7 +62,7 @@ export interface LoginState {
 }
 
 export interface FilterPropertyOptions {
-  governorates: Array<string>
+  states: Array<string>
   locations: Array<string>
   rent?: Array<number>
   size?: Array<number>
@@ -73,7 +73,7 @@ export interface IFormInput {
   description: string
   size: number
   rent: number
-  governorate: string
+  state: string
   location: string
   street: string
   services: string[]

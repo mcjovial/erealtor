@@ -1,11 +1,11 @@
-import { BasedApiUrl } from './../api/BaseUrl'
-import { FilterPropertyOptions } from './../types/index'
+import { BasedApiUrl } from '../api/BaseUrl'
+import { FilterPropertyOptions } from '../types/index'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export interface WarehousesFilterState {
-  filteredWarehouses: Array<object>
-  governorates: Array<string>
+export interface PropertiesFilterState {
+  filteredProperties: Array<object>
+  states: Array<string>
   locations: Array<string>
   rent?: Array<number>
   size?: Array<number>
@@ -13,9 +13,9 @@ export interface WarehousesFilterState {
   pending: boolean
 }
 
-const initialState: WarehousesFilterState = {
-  filteredWarehouses: [],
-  governorates: [],
+const initialState: PropertiesFilterState = {
+  filteredProperties: [],
+  states: [],
   locations: [],
   rent: [0, 0],
   size: [0, 0],
@@ -23,17 +23,17 @@ const initialState: WarehousesFilterState = {
   pending: false,
 }
 
-const filterWarehouses = createAsyncThunk(
-  'warehouses/filter',
+const filterProperties = createAsyncThunk(
+  'api/properties/filter',
   async (filterOptions: FilterPropertyOptions, thunkAPI) => {
-    const { rent, size, governorates, locations } = filterOptions
+    const { rent, size, states, locations } = filterOptions
 
     try {
       const response = await axios({
         method: 'post',
-        url: `${BasedApiUrl}/warehouses`,
+        url: `${BasedApiUrl}/api/properties`,
         data: {
-          governorates,
+          states,
           locations,
           rent,
           size,
@@ -46,18 +46,18 @@ const filterWarehouses = createAsyncThunk(
   }
 )
 
-export const warehousesFilterSlice = createSlice({
-  name: 'warehouseFilter',
+export const propertiesFilterSlice = createSlice({
+  name: 'propertyFilter',
   initialState,
   reducers: {
     addFilters: (state, action: PayloadAction<FilterPropertyOptions>) => {
-      state.governorates = action.payload.governorates
+      state.states = action.payload.states
       state.locations = action.payload.locations
       state.rent = action.payload.rent
       state.size = action.payload.size
     },
     clearFilters: (state) => {
-      state.governorates = []
+      state.states = []
       state.locations = []
       state.rent = [0, 0]
       state.size = [0, 0]
@@ -65,23 +65,23 @@ export const warehousesFilterSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(filterWarehouses.pending, (state) => {
+      .addCase(filterProperties.pending, (state) => {
         state.pending = true
       })
-      .addCase(filterWarehouses.fulfilled, (state, action: PayloadAction<any>) => {
-        state.filteredWarehouses = [...action.payload.warehouses]
+      .addCase(filterProperties.fulfilled, (state, action: PayloadAction<any>) => {
+        state.filteredProperties = [...action.payload.properties]
         state.error = ''
         state.pending = false
       })
-      .addCase(filterWarehouses.rejected, (state, action: PayloadAction<any>) => {
+      .addCase(filterProperties.rejected, (state, action: PayloadAction<any>) => {
         state.error = action.payload.error
         state.pending = false
       })
   },
 })
 
-const { addFilters, clearFilters } = warehousesFilterSlice.actions
+const { addFilters, clearFilters } = propertiesFilterSlice.actions
 
-export { filterWarehouses, addFilters, clearFilters }
+export { filterProperties, addFilters, clearFilters }
 
-export default warehousesFilterSlice.reducer
+export default propertiesFilterSlice.reducer

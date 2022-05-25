@@ -3,7 +3,7 @@ import React from 'react'
 import SearchComponent from '../components/Filter/SearchComponent'
 import LandingNavbar from './LandingNavbar'
 import { useAppDispatch } from '../app/hooks'
-import { addFilters } from '../slices/WarehousesFilterSlice'
+import { addFilters } from '../slices/PropertiesFilterSlice'
 
 import '../styles/LandingPage.css'
 
@@ -16,7 +16,7 @@ const LandingPage: React.FC = () => {
 
   const _addFilters = (data: {
     locations: string[]
-    governorates: string[]
+    states: string[]
     rent?: number[]
     size?: number[]
   }) => dispatch(addFilters(data))

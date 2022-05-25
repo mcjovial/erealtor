@@ -1,19 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TextField, Autocomplete, Stack, InputAdornment, Paper, Button } from '@mui/material'
 import { Box } from '@mui/system'
 
-import { GOVERNORATES, LOCATIONS } from '../../utils/constants'
+import { LOCATIONS, STATES } from '../../utils/constants'
 import { FilterPropertyOptions } from '../../types'
 
 interface IFilterPropertiesState {
   locations: string[]
-  governorates: string[]
+  states: string[]
   addFilters: (filters: FilterPropertyOptions) => void
   clearFilters: () => void
 }
 
 const FilterComponent: React.FC<IFilterPropertiesState> = ({
-  governorates,
+  states,
   locations,
   addFilters,
   clearFilters,
@@ -22,7 +22,7 @@ const FilterComponent: React.FC<IFilterPropertiesState> = ({
   // Hooks
   // ===========================================================================
 
-  const [filteredGovernorates, setGovernorates] = React.useState<string[]>([...governorates])
+  const [filterStates, setStates] = useState<string[]>([...states])
   const [filteredLocations, setLocations] = React.useState<string[]>([...locations])
   const [size, setSize] = React.useState<{ minSize: number; maxSize: number }>({
     minSize: 0,
@@ -37,8 +37,8 @@ const FilterComponent: React.FC<IFilterPropertiesState> = ({
   // Handlers
   // ===========================================================================
 
-  const handleFilterGovernorates = (event: React.SyntheticEvent<Element, Event>, value: string[]) =>
-    setGovernorates(value)
+  const handleFilterStates = (event: React.SyntheticEvent<Element, Event>, value: string[]) =>
+    setStates(value)
 
   const handleFilterLocations = (event: React.SyntheticEvent<Element, Event>, value: string[]) =>
     setLocations(value)
@@ -77,7 +77,7 @@ const FilterComponent: React.FC<IFilterPropertiesState> = ({
 
   const handleApplyFilters = () => {
     const Filters = {
-      governorates: filteredGovernorates,
+      states: filterStates,
       locations: filteredLocations,
       size: [size.minSize, size.maxSize],
       rent: [rent.minRent, rent.maxRent],
@@ -87,7 +87,7 @@ const FilterComponent: React.FC<IFilterPropertiesState> = ({
   }
 
   const handleClearFilters = () => {
-    setGovernorates([])
+    setStates([])
     setLocations([])
     setSize({ minSize: 0, maxSize: 0 })
     setRent({ minRent: 0, maxRent: 0 })
@@ -101,10 +101,10 @@ const FilterComponent: React.FC<IFilterPropertiesState> = ({
         <Stack sx={{ textAlign: 'left' }} spacing={5}>
           <Autocomplete
             multiple
-            value={filteredGovernorates}
-            onChange={handleFilterGovernorates}
-            id="governorates-filter"
-            options={GOVERNORATES}
+            value={filterStates}
+            onChange={handleFilterStates}
+            id="governorates-filter"  //  check here
+            options={STATES}
             autoHighlight
             getOptionLabel={(option) => option}
             filterSelectedOptions

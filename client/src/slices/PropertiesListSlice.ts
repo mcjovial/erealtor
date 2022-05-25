@@ -1,9 +1,9 @@
-import { BasedApiUrl } from './../api/BaseUrl';
+import { BasedApiUrl } from '../api/BaseUrl';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export interface PropertiesListState {
-  warehouses: Array<object>
+  properties: Array<object>
   error: string
   pending: boolean
   maxRent?: number | null
@@ -11,7 +11,7 @@ export interface PropertiesListState {
 }
 
 const initialState: PropertiesListState = {
-  warehouses: [],
+  properties: [],
   error: '',
   pending: false,
   maxRent: 0,
@@ -26,11 +26,11 @@ if (!!id) {
   }
 }
 
-const fetchProperties = createAsyncThunk('warehouses/fetch', async (_, thunkAPI) => {
+const fetchProperties = createAsyncThunk('properties/fetch', async (_, thunkAPI) => {
   try {
     const response = await axios({
       method: 'get',
-      url: `${BasedApiUrl}/warehouses`,
+      url: `${BasedApiUrl}/api/properties`,
       headers
     })
     return response.data
@@ -40,7 +40,7 @@ const fetchProperties = createAsyncThunk('warehouses/fetch', async (_, thunkAPI)
 })
 
 export const propertiesListSlice = createSlice({
-  name: 'warehouses',
+  name: 'properties',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -50,7 +50,7 @@ export const propertiesListSlice = createSlice({
       })
       .addCase(fetchProperties.fulfilled, (state, action) => {
         return (state = {
-          warehouses: [...action.payload.warehouses],
+          properties: [...action.payload.properties],
           error: '',
           pending: false,
           maxRent: action.payload.maxRent,
@@ -59,7 +59,7 @@ export const propertiesListSlice = createSlice({
       })
       .addCase(fetchProperties.rejected, (state, action: PayloadAction<any>) => {
         return (state = {
-          warehouses: [],
+          properties: [],
           error: action.payload.error,
           pending: false,
         });

@@ -1,23 +1,23 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Skeleton, Stack } from '@mui/material'
 
-import Warehouse from './Warehouse'
+import Property from './Property'
 import { Box } from '@mui/system'
 
 import '../../styles/Warehouse.css'
 
-export interface IWarehousesListState {
-  warehouses: object[]
+export interface IPropertiesListState {
+  properties: object[]
   loading: boolean
   error: string
 }
 
-const WarehousesList: React.FC<IWarehousesListState> = ({ warehouses = [], loading, error }) => {
+const PropertiesList: FC<IPropertiesListState> = ({ properties = [], loading, error }) => {
   if (loading) {
     return (
       <>
         <h1>Loading</h1>
-        {warehouses.map((warehouse, index) => {
+        {properties.map((property, index) => {
           return (
             <Stack spacing={1} key={index}>
               <Box
@@ -34,7 +34,7 @@ const WarehousesList: React.FC<IWarehousesListState> = ({ warehouses = [], loadi
     )
   }
 
-  if (warehouses.length === 0 && !error) {
+  if (properties.length === 0 && !error) {
     return <div>No Properties to Display</div>
   }
 
@@ -46,11 +46,11 @@ const WarehousesList: React.FC<IWarehousesListState> = ({ warehouses = [], loadi
     <>
       <div data-testid="warehouses-nodes">
         <Stack spacing={5}>
-          {warehouses.map((warehouse: any, idx) => {
+          {properties.map((property: any, idx) => {
             return (
-              <div key={warehouse?.id ?? idx}>
+              <div key={property?.id ?? idx}>
                 <Box>
-                  <Warehouse {...warehouse} />
+                  <Property {...property} />
                 </Box>
               </div>
             )
@@ -61,4 +61,4 @@ const WarehousesList: React.FC<IWarehousesListState> = ({ warehouses = [], loadi
   )
 }
 
-export default WarehousesList
+export default PropertiesList

@@ -1,13 +1,13 @@
 import { Box, Container, Grid, Switch, Typography, useMediaQuery } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import FilterComponent from '../components/Filter/FilterComponent'
 import LandingNavbar from './LandingNavbar'
-import WarehouseList from '../components/WarehousesList/WarehousesList'
+import PropertyList from '../components/PropertiesList/PropertiesList'
 import { useAppSelector, useAppDispatch } from '../app/hooks'
 import { RootState } from '../app/store'
-import { addFilters, clearFilters, filterWarehouses } from '../slices/WarehousesFilterSlice'
+import { addFilters, clearFilters, filterProperties } from '../slices/PropertiesFilterSlice'
 import { FilterPropertyOptions } from '../types/index'
-import { fetchProperties } from '../slices/WarehousesListSlice'
+import { fetchProperties } from '../slices/PropertiesListSlice'
 
 const ExplorePage: React.FC = () => {
   // ===========================================================================
@@ -15,13 +15,13 @@ const ExplorePage: React.FC = () => {
   // ===========================================================================
 
   const {
-    warehouses,
-    error: errWarehouses,
-    pending: loadingWarehouses,
-  } = useAppSelector((state: RootState) => state.warehousesList)
+    properties,
+    error: errProperties,
+    pending: loadingProperties,
+  } = useAppSelector((state: RootState) => state.propertiesList)
 
-  const { filteredWarehouses, governorates, locations, size, rent } = useAppSelector(
-    (state: RootState) => state.warehousesFilter
+  const { filteredProperties, states, locations, size, rent } = useAppSelector(
+    (state: RootState) => state.propertiesFilter
   )
 
   // ===========================================================================
@@ -30,7 +30,7 @@ const ExplorePage: React.FC = () => {
 
   const dispatch = useAppDispatch()
 
-  const _filterWarehouses = (data: FilterPropertyOptions) => dispatch(filterWarehouses(data))
+  const _filterProperties = (data: FilterPropertyOptions) => dispatch(filterProperties(data))
 
   const _fetchProperties = () => dispatch(fetchProperties())
 
@@ -42,25 +42,25 @@ const ExplorePage: React.FC = () => {
   // Hooks
   // ===========================================================================
 
-  const [filterOpen, setFilterOpen] = React.useState<boolean>(true)
+  const [filterOpen, setFilterOpen] = useState<boolean>(true)
 
   const mySize = size && size[0] + size[1] > 0
   const myRent = rent && rent[0] + rent[1] > 0
-  const filters = governorates.length > 0 || locations.length > 0 || mySize || myRent
+  const filters = states.length > 0 || locations.length > 0 || mySize || myRent
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     setFilterOpen(event.target.checked)
 
   useEffect(() => {
     if (filters) {
-      _filterWarehouses({ locations, governorates, size, rent })
+      _filterProperties({ locations, states, size, rent })
     } else {
       _fetchProperties()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [governorates, locations, size, rent])
+  }, [states, locations, size, rent])
 
-  const warehousesList: any = filters ? filteredWarehouses : warehouses
+  const propertiesList: any = filters ? filteredProperties : properties
   const matches = useMediaQuery('(min-width:1000px)')
 
   return (
@@ -81,20 +81,20 @@ const ExplorePage: React.FC = () => {
                 <FilterComponent
                   clearFilters={_clearFilters}
                   addFilters={_addFilters}
-                  governorates={governorates}
+                  states={states}
                   locations={locations}
                 />
               )}
             </Grid>
             <Grid item xs={12} lg={9}>
               <Typography gutterBottom variant="h5" sx={{ marginY: '1rem' }}>
-                {warehousesList.length + ' Properties for Renting & Sale'}
+                {propertiesList.length + ' Properties for Renting & Sale'}
               </Typography>
 
-              <WarehouseList
-                warehouses={warehousesList}
-                loading={loadingWarehouses}
-                error={errWarehouses}
+              <PropertyList
+                properties={propertiesList}
+                loading={loadingProperties}
+                error={errProperties}
               />
             </Grid>
           </Grid>

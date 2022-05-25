@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
+import React, { SyntheticEvent, useState } from 'react'
 import { Autocomplete, Box, Button, Divider, Stack, TextField } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import { useNavigate } from 'react-router-dom'
 
-import { GOVERNORATES, LOCATIONS } from '../../utils/constants/index'
+import { LOCATIONS, STATES } from '../../utils/constants/index'
 import { FilterPropertyOptions } from '../../types'
 
-interface ISearchWarehousesProps {
+interface ISearchPropertiesProps {
   addFilters: (filters: FilterPropertyOptions) => void
 }
 
-const SearchComponent: React.FC<ISearchWarehousesProps> = ({ addFilters }) => {
+const SearchComponent: React.FC<ISearchPropertiesProps> = ({ addFilters }) => {
   const [location, setLocation] = useState<string | null>()
-  const [governorate, setGovernorate] = useState<string | null>()
+  const [state, setState] = useState<string | null>()
 
   const history = useNavigate()
 
   const onSubmit = () => {
     addFilters({
       locations: location ? [location] : [],
-      governorates: governorate ? [governorate] : [],
+      states: state ? [state] : [],
       size: [0, 0],
       rent: [0, 0],
     })
@@ -52,11 +52,11 @@ const SearchComponent: React.FC<ISearchWarehousesProps> = ({ addFilters }) => {
           <Autocomplete
             disablePortal
             id="governorate-input"
-            options={GOVERNORATES}
+            options={STATES}
             sx={{ width: 300 }}
-            data-testid="governorate-input-testid"
-            onChange={(event: React.SyntheticEvent<Element, Event>, newValue: string | null) => {
-              setGovernorate(newValue)
+            data-testid="governorate-input-testid"  //  check here
+            onChange={(event: SyntheticEvent<Element, Event>, newValue: string | null) => {
+              setState(newValue)
             }}
             renderInput={(params) => <TextField {...params} label="Sate" />}
           />

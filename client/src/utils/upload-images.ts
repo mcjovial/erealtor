@@ -7,7 +7,7 @@ export const uploadImages = async (files: string[]) => {
     files.forEach((file: string) => formData.append('avatar', file))
     const response = await axios({
       method: 'post',
-      url: `${BasedApiUrl}/uploads`,
+      url: `${BasedApiUrl}/api/uploads`,
       headers: {
         'Content-Type': 'multipart/form-data',
       },

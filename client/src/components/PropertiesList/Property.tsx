@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Typography, Paper, Button, Stack, useMediaQuery } from '@mui/material'
 import WarehouseOutlinedIcon from '@mui/icons-material/WarehouseOutlined'
 import SquareFootSharpIcon from '@mui/icons-material/SquareFootSharp'
@@ -8,14 +8,14 @@ import { Box } from '@mui/system'
 import { formatRentValue } from '../../utils/format-number'
 import { Link } from 'react-router-dom'
 
-import { WarehouseAttributes } from '../../types'
+import { PropertyAttributes } from '../../types'
 
-interface IWarehouseComponentProps extends WarehouseAttributes {}
+interface IPropertyComponentProps extends PropertyAttributes {}
 
-const Warehouse: React.FC<IWarehouseComponentProps> = ({
+const Property: FC<IPropertyComponentProps> = ({
   title,
-  id,
-  governorate,
+  _id,
+  state,
   location,
   rent,
   size,
@@ -30,7 +30,7 @@ const Warehouse: React.FC<IWarehouseComponentProps> = ({
         variant="outlined"
         square
         sx={{ display: 'flex', flexDirection: matches ? 'row' : 'column' }}
-        data-testid="warehouse-node"
+        data-testid="warehouse-node"  //  check here
       >
         <Box className="warehouse-img-wrapper">
           <img style={{ maxWidth: matches ? '27rem' : '100%' }} src={Images[0]} alt="" />
@@ -48,7 +48,7 @@ const Warehouse: React.FC<IWarehouseComponentProps> = ({
           <Stack direction={'row'} spacing={2}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <WarehouseOutlinedIcon />
-              <Typography variant="body2">Warehouse</Typography>
+              <Typography variant="body2">Property</Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <SquareFootSharpIcon />
@@ -56,9 +56,9 @@ const Warehouse: React.FC<IWarehouseComponentProps> = ({
             </Box>
           </Stack>
 
-          <Typography variant="body2">{`${governorate} , ${location} , ${street}`}</Typography>
+          <Typography variant="body2">{`${state} , ${location} , ${street}`}</Typography>
 
-          <Link to={`/explore/${id}`}>
+          <Link to={`/explore/${_id}`}>
             <Button sx={{ width: '100%', marginBottom: '1rem' }} variant="contained">
               More Details
             </Button>
@@ -69,4 +69,4 @@ const Warehouse: React.FC<IWarehouseComponentProps> = ({
   )
 }
 
-export default Warehouse
+export default Property
