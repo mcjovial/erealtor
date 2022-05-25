@@ -83,6 +83,7 @@ const PostProperty: FC = () => {
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
       setUploadingImages(true)
+      console.log('Heeeeeerrrrrreee');
       const Myimages = await uploadImages(files)
       await _postProperty({ ...data, images: Myimages })
       setUploadingImages(false)

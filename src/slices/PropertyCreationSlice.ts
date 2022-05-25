@@ -21,11 +21,11 @@ const initialState: PropertyCreationState = {
   pending: false,
 }
 
-const postProperty = createAsyncThunk('api/properties/create', async (data: any, thunkAPI) => {
+const postProperty = createAsyncThunk('api/properties', async (data: any, thunkAPI) => {
   try {
     const response = await axios({
       method: 'post',
-      url: `${BasedApiUrl}/api/properties/create`,
+      url: `${BasedApiUrl}/api/properties`,
       headers: {
         Authorization: `Bearer ${userData?.token}`,
       },
