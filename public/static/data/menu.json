@@ -3,51 +3,7 @@
         "menu_1": [
             {
                 "text": "Home",
-                "url": "/",
-                "extraClass": "menu-item-has-children",
-                "subClass": "sub-menu",
-                "subMenu": [
-                    {
-                        "text": "Marketplace Full Width",
-                        "url": "/"
-                    },
-                    {
-                        "text": "Home Auto Parts",
-                        "url": "/home/auto-part"
-                    },
-                    {
-                        "text": "Home Technology",
-                        "url": "/home/technology"
-                    },
-                    {
-                        "text": "Home Organic",
-                        "url": "/home/organic"
-                    },
-                    {
-                        "text": "Home Marketplace V1",
-                        "url": "/home/market-place"
-                    },
-                    {
-                        "text": "Home Marketplace V2",
-                        "url": "/home/market-place-2"
-                    },
-                    {
-                        "text": "Home Marketplace V3",
-                        "url": "/home/market-place-3"
-                    },
-                    {
-                        "text": "Home Marketplace V4",
-                        "url": "/home/market-place-4"
-                    },
-                    {
-                        "text": "Home Electronic",
-                        "url": "/home/electronic"
-                    },
-                    {
-                        "text": "Home Furniture",
-                        "url": "/home/furniture"
-                    }
-                ]
+                "url": "/"
             },
             {
                 "text": "Shop",

@@ -42,8 +42,9 @@ class HeaderMobile extends Component {
                         <Link href="/">
                             <a className="ps-logo">
                                 <img
-                                    src="/static/img/logo_light.png"
+                                    src="/static/img/logo.png"
                                     alt="ecoMern"
+                                    height='42'
                                 />
                             </a>
                         </Link>
